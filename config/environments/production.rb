@@ -16,17 +16,11 @@ config.action_controller.perform_caching             = true
 
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
-require 'fileutils'
-TMPDIR="/tmp/railssessions/modules"
-FileUtils::mkdir_p TMPDIR
 
-ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:session_key]='modules'
-ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:prefix]='modules_'
-ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS[:tmpdir]=TMPDIR
 
-require 'gardenauth'
-AUTHCLASS = GardenAuth::WikiAuth
-LOCALSETTINGS_PHP="/var/www/contextgarden.net/contextwiki/LocalSettings.php"
+# require 'gardenauth'
+# AUTHCLASS = GardenAuth::WikiAuth
+# LOCALSETTINGS_PHP="/var/www/contextgarden.net/contextwiki/LocalSettings.php"
 
 CTANDIR="/var/www/contextgarden.net/ctanmirror/contrib"
 DLDIR="/var/www/contextgarden.net/dl/modules"

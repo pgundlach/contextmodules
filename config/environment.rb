@@ -11,6 +11,11 @@ RAILS_GEM_VERSION = '2.0.2' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
+    config.action_controller.session = {
+    :session_key => '_modules_session',
+    :secret      => '90acd2154defbcb87fc0c54cfe6d8061fede39218e6fd64312c5fab1a4916f05eaf96e7db09064069aa20dc690d6efb2cc894fc7d332c5b8da4fb119734d107e'
+  }
+
   # Settings in config/environments/* take precedence over those specified here
   
   # Skip frameworks you're not going to use (only works if using vendor/rails)
@@ -59,7 +64,7 @@ end
 
 # Include your application configuration below
 
-gem 'gardenauth'
+# gem 'gardenauth'
 require 'socket'
 
 RSSFILE=File.join(RAILS_ROOT,"public","modulesrss.xml")
