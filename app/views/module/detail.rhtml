@@ -1,0 +1,47 @@
+<% @page_title="Module details" -%>
+
+<table>
+  <colgroup>
+    <col width="40%">
+    <col width="60%">
+  </colgroup>
+  <tr><td class="right">Name of module:</td><td><%= @package.name %></td></tr>
+  <tr>
+    <td class="right">Author:</td><td><%= @package.author.name %></td>
+  </tr>
+  <tr><td class="right">Short description:</td><td><%= @package.short_desc || "" %></td></tr>
+  <% if @package.filename -%>
+   <tr><td class="right">Filename:</td><td><%= @package.full_filename %></td></tr>
+  <% end -%>
+  <tr>
+    <td class="right">Keywords:</td>
+    <td><%= @package.keywords.collect { |kw| kw.keyword }.join(', ') %></td>
+  </tr>
+  <tr>
+    <td class="right">License:</td>
+    <td><%= link_to(@package.license.name,@package.license.url) %></td>
+  </tr>
+  <tr>
+    <td class="right">Current version:</td><td>
+      <% if @package.has_files? -%>
+         <%= @package.latest_version -%>
+    <% end -%>
+    </td>
+  </tr>
+  <tr><td class="right">In sync with CTAN:</td><td><%= @package.syncwithctan ? "yes" : "no" %></td></tr>
+  <% if @package.ctan_loc? %>
+    <tr><td class="right">CTAN location:</td><td><%= @package.ctan %></td></tr>
+  <% end %>
+  <tr><td class="right">In distribution:</td><td><%= @package.indistrib? ? "yes" : "no" %></td></tr>
+  <tr><td class="right">In contextgarden:</td><td><%= @package.ingarden ? "yes" : "no" %></td></tr>
+  <tr><td class="right">Description:</td><td><%= @package.description %></td></tr>
+  <% if @package.has_comment? %>
+    <tr><td class="right">Comment:</td><td><%= @package.comment %></td></tr>
+  <% end %>
+</table>
+
+<% if @may_edit  -%>
+  <%= link_to "edit this module", :action => "edit", :id => @package.id %>&nbsp;
+  <%= link_to "add new revison", :action => "add_revision", :id => @package.id %>&nbsp;
+  <%= link_to "documentation", :controller => "documentation", :action => "index", :id => @package.id %>
+<% end -%>

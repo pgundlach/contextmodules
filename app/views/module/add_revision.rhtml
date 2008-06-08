@@ -1,0 +1,29 @@
+<% @page_title="Module update" -%>
+
+<%= form_tag({:action=> "update_revision", :id=>@package }, { :multipart=>true, :method => "post"})  %>
+<table>
+  <colgroup>
+    <col width="40%">
+    <col width="60%">
+  </colgroup>
+  <tr><td class="right">Name of module:</td><td><%= @package.name %></td></tr>
+  <tr>
+    <td class="right">Current version:</td><td>
+      <%= @package.latest_version -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="right">New version:</td><td>
+      <%= text_field "package", "latest_version" -%>
+    </td>
+  </tr>
+  <tr>
+    <td class="right">File:</td>
+    <td><input type="file" name="package[file]" value="/Users/pg/enattab.pdf" /></td>
+  </tr>
+</table>
+
+<%= submit_tag "Update" %>
+<%= end_form_tag %>
+
+

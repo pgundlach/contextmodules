@@ -1,0 +1,71 @@
+<% @page_title="Module edit" -%>
+
+<%= form_tag :action =>"update", :id => @package %>
+<table>
+  <colgroup>
+    <col width="40%">
+    <col width="60%">
+  </colgroup>
+  <tr>
+    <td class="right">Name of module:</td>
+    <td><%= text_field "package", "name" %></td></tr>
+  <tr>
+    <td class="right">Short description:</td>
+    <td><%= text_area("package","short_desc", :rows=>"3") %></td></tr> 
+  <tr>
+    <td class="right">Author:</td>
+  <% if controller.is_admin? -%>
+    <td><%= select("package","author_id",Author.find_all.collect { |a| [a.name, a.id] })%></td>
+  <% else %>
+    <td><%= @package.author.name %></td>
+  <% end %>
+  </tr>
+  <tr>
+    <td class="right">URL:</td><td><%= text_field "package", "url" %></td>
+  </tr>
+
+  <% if @package.filename -%>
+  <% if controller.is_admin? -%>
+  <tr>
+    <td class="right">Filename:</td>
+    <td><%= text_field "package", "filename" %></td></tr>
+  <tr>
+<% else -%>  <tr>
+    <td class="right">Filename:</td>
+    <td><%= @package.filename %></td></tr>
+  <tr>
+<% end -%>
+  <% end -%>
+    <td class="right">Keywords:</td>
+    <td><%= select_tag("keywords[]",options_from_collection_for_select(@keywords, "id",  "keyword",@package_keywords),"multiple"=>:true)  %></td>
+  </tr>
+  <tr>
+    <td class="right">License:</td>
+    <td><%= select("package", "license_id",License.find_all.collect {
+	    |l| [l.name, l.id] })  %></td>
+  </tr>
+  <tr>
+    <td class="right">Current version:</td><td>
+      <%= text_field("package", "latest_version") -%>
+    </td>
+  </tr>
+  <tr><td class="right">In garden</td>
+    <td><%= check_box("package", "ingarden") %></td></tr>
+  <tr><td class="right">In sync with CTAN:</td>
+    <td><%= check_box("package", "syncwithctan") %></td></tr>
+  <tr><td class="right">CTAN location:</td>
+      <td><%= text_field  "package", "ctan" %></td>
+    </tr>
+  <tr><td class="right">In distribution:</td>
+    <td><%= check_box("package","indistrib") %></td>
+  </tr>
+  <tr><td class="right">Description:</td>
+    <td><%= text_area("package","description", :rows=>"10") %></td></tr>
+  <tr><td class="right">Comment:</td>
+    <td><%= text_area("package","comment", :rows=>"10")%></td></tr>
+</table>
+
+<%= submit_tag "Update" %>
+<%= end_form_tag %>
+
+

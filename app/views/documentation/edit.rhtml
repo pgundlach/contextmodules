@@ -1,0 +1,9 @@
+<% @page_title="Editing documentation" %>
+
+<%= start_form_tag :action => 'update', :id => @doc %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<%= end_form_tag %>
+
+<%= link_to 'Show', :action => 'show', :id => @doc %> |
+<%= link_to 'Back', :action => "index", :id => @package  %>

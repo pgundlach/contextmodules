@@ -1,0 +1,25 @@
+<html>
+<head>
+  <title><%= @page_title %></title>
+  <%= stylesheet_link_tag 'modules' %>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="alternate" type="application/rss+xml" href="/modulesrss.xml" title="list of modules">
+</head>
+<body>
+  <div id="mainbox">
+   <h1 class="box"><%= @page_title %></h1>
+<% if @sidebar -%>
+   <div id="sidebar"><%= render_partial @sidebar %></div>
+<% end -%>
+  <div id="description">
+    <div class="content">
+      <% if flash[:notice] -%>
+        <div id="notice"><%= h flash[:notice] %></div>
+      <% end -%>        
+     <%= @content_for_layout -%>
+  </div>
+  </div>
+   <div style="clear: both;"></div>
+  </div>
+</body>
+</html>

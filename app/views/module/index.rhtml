@@ -1,0 +1,15 @@
+<% @page_title="Modules and Packages for ConTeXt" -%>
+<table>
+  <colgroup>
+    <col width="40%">
+    <col width="60%">
+  </colgroup>
+  <tr><th>Name</th><th>Description</th></tr>
+  <% @packages.each do |m| -%>
+  <tr>
+    <td><%= link_to(m.name, "/#{m.shortname}") %></td>
+    <td><%= m.short_desc || m.description %></td>
+  </tr>
+  <% end -%>
+</table>
+    

@@ -1,0 +1,23 @@
+<% @page_title="Documentation detail" %>
+
+<table>
+  <tr>
+    <td class="right">Filename:</td>
+    <td><%= @doc.filename %></td>
+  </tr>
+  <tr>
+    <td class="right">URL:</td>
+    <td><%= @doc.url %></td>
+  </tr>
+  <tr>
+    <td class="right">Filetype:</td>
+    <td><%= @doc.filetype %></td>
+  </tr>
+  <tr>
+    <td class="right">Alternative name:</td>
+    <td><%= @doc.alt %></td>
+  </tr>
+</table>
+	    
+<%= link_to 'Edit', :action => 'edit', :id => @doc %> |
+<%= link_to 'Back', :action => "index", :id => @package %>

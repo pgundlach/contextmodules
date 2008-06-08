@@ -1,0 +1,12 @@
+<% @page_title="Admin" -%>
+
+<%= link_to "update rss file", :action => "update_rss" -%>
+<% if @rss_needs_update -%>
+&nbsp;(Updated needed)
+<% else -%>
+&nbsp;(not needed)
+<% end %><br />
+<%= link_to "updated module since last login", :action => "news" -%><br />
+<%= link_to "authors admin", :controller => "author" %><br />
+<%= link_to "edit licenses", :controller => "license"%>
+

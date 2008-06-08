@@ -1,0 +1,13 @@
+<%= error_messages_for 'author' %>
+
+<!--[form:author]-->
+<p><label for="author_name">Name</label><br/>
+<%= text_field 'author', 'name'  %></p>
+
+<p><label for="author_wikiname">Wikiname</label><br/>
+<%= text_field 'author', 'wikiname'  %></p>
+
+<p><label for="author_last_visit">Last visit</label><br/>
+<%= datetime_select 'author', 'last_visit'  %></p>
+<!--[eoform:author]-->
+

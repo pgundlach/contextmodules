@@ -1,0 +1,21 @@
+<% @page_title="Log" -%>
+
+
+<p>Please log in using the name and password from the wiki</p>
+<%= form_tag :action => "login" %>
+<table>
+  <tr>
+    <td class="right">Wiki Login</td>
+    <td><%= text_field     'user', 'name' %></td>
+  </tr>
+  <tr>
+    <td class="right">Password</td>
+    <td><%= password_field 'user', 'password' %></td>
+  </tr>
+  <tr>
+    <td class="right">your full name, if this is your first login</td>
+    <td><%= text_field     'user', 'fullname' %></td>
+  </tr>
+</table>
+  <%= submit_tag "login" %>
+<%= end_form_tag %>

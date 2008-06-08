@@ -1,0 +1,12 @@
+<h2 class="first">Navigation</h2>
+<%= link_to "main page", "/" %><br />
+<% if session[:uid] -%>
+<%= link_to "log out", :controller => "admin", :action => "logout" %><br />
+<%= link_to "my modules", :controller=>"module", :action => "ownmodules" -%><br />
+<%= link_to "new module", :controller => "module", :action => "new" -%>
+<% else -%>
+<%= link_to "log in", :controller => "admin", :action => "login" -%>
+<% end -%>
+<% if controller.is_admin? -%>
+<br /><%= link_to "admin page", :controller => "admin", :action => "index" -%>
+<% end -%>

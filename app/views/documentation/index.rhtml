@@ -1,0 +1,15 @@
+<% @page_title="Documentation" -%>
+<table>
+  <tr><td>Filename</td></tr>
+<% @docs.each do |doc| -%>
+  <tr>
+    <td><%= doc.filename %></td>
+    <td>&nbsp;<%= link_to 'Show', :action => 'show', :id => doc %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => doc %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => doc }, :confirm => 'Are you sure?' %></td>
+  </tr>
+<% end %>
+</table>
+<br />
+
+<%= link_to "New Documentation", :action => 'new', :id => @package %>
