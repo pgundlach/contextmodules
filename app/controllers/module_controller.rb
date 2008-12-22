@@ -7,7 +7,7 @@ class ModuleController < ApplicationController
   def new
     @sidebar="sidebar_index"
     @package = Package.new
-    @keywords = Keyword.find_all
+    @keywords = Keyword.find(:all)
     @author = Author.find(session[:uid])
   end
 

@@ -15,7 +15,7 @@
   <tr>
     <td class="right">Author:</td>
   <% if controller.is_admin? -%>
-    <td><%= select("package","author_id",Author.find_all.collect { |a| [a.name, a.id] })%></td>
+    <td><%= select("package","author_id",Author.find(:all).collect { |a| [a.name, a.id] })%></td>
   <% else %>
     <td><%= @package.author.name %></td>
   <% end %>
@@ -41,7 +41,7 @@
   </tr>
   <tr>
     <td class="right">License:</td>
-    <td><%= select("package", "license_id",License.find_all.collect {
+    <td><%= select("package", "license_id",License.find(:all).collect {
 	    |l| [l.name, l.id] })  %></td>
   </tr>
   <tr>
@@ -66,6 +66,6 @@
 </table>
 
 <%= submit_tag "Update" %>
-<%= end_form_tag %>
+</form>
 
 

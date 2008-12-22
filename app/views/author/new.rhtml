@@ -1,8 +1,8 @@
 <% @page_title="New author" %>
 
-<%= start_form_tag :action => 'create' %>
+<% form_for @author, :url => { :action => 'create'} do |x| %>
   <%= render :partial => 'form' %>
   <%= submit_tag "Create" %>
-<%= end_form_tag %>
+<% end %>
 
 <%= link_to 'Back', :action => 'list' %>

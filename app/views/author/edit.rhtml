@@ -1,9 +1,9 @@
 <% @page_title="Editing authors" %>
 
-<%= start_form_tag :action => 'update', :id => @author %>
+<% form_for @author, :url => {:action => "update", :id => @author.id} do |a| %>
   <%= render :partial => 'form' %>
   <%= submit_tag 'Edit' %>
-<%= end_form_tag %>
+<% end %>
 
 <%= link_to 'Show', :action => 'show', :id => @author %> |
 <%= link_to 'Back', :action => 'list' %>

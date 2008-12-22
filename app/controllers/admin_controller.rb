@@ -1,4 +1,6 @@
 class AdminController < ApplicationController
+  require_dependency "wikiuser"
+
   filter_parameter_logging :password
   before_filter :authorize, :except => [:logout, :login]
   
@@ -48,7 +50,7 @@ class AdminController < ApplicationController
       # never play with the unencrypted password
       md5pass=Digest::MD5.hexdigest(params[:user][:password])
       params[:user][:password]=md5pass
-      if user=AUTHCLASS.validates?(username,md5pass)
+      if user = validates?(username,md5pass)
         if a=Author.find_by_wikiname(username)
           flash[:notice] = "Welcome!"
         else
@@ -77,4 +79,73 @@ class AdminController < ApplicationController
       reset_session
     end
   end
+
+  # Return WikiUser object if the username and md5password match. Else false.
+  def validates?(username,md5password)
+    case Garden.auth_method
+    when :dummy
+      validates_dummy?(username,md5password)
+    when :wiki
+      validates_wiki?(username,md5password)
+    else
+      false
+    end
+  end
+  
+  def validates_dummy?(username,md5password)
+    username=sanitize_username(username)
+    if username=="Joe" && md5password=="5ebe2294ecd0e0f08eab7690d2a6ee69"
+      u=WikiUser.new
+      u.email=""
+      u.id="1"
+      u.name="Joe"
+      u.real_name="Joe User"
+      u.status="sysop"
+      return u
+    else
+      false
+    end
+  end
+
+  def validates_wiki?(username,md5password)
+    require 'rubygems'
+    require 'mysql'
+    username=sanitize_username(username)
+    raise ScriptError, "Please set Garden.localsettings_php" unless Garden.localsettings_php
+    string=File.read(Garden.localsettings_php)
+    string =~ /^\s*\$wgDBserver\s*=\s*"(.*?)"/
+    @dbserver=$1
+    string =~ /^\s*\$wgDBname\s*=\s*"(.*?)"/
+    @dbname=$1
+    string =~ /^\s*\$wgDBuser\s*=\s*"(.*?)"/
+    @dbuser=$1
+    string =~ /^\s*\$wgDBpassword\s*=\s*"(.*?)"/
+    @dbpassword=$1
+    m = Mysql.new(@dbserver,@dbuser,@dbpassword,@dbname)
+    result=m.query("SELECT * from user")
+    result.each_hash do |row|
+      if row['user_name']==username
+        if row['user_password']==Digest::MD5.hexdigest(row['user_id']+"-"+md5password)
+          u=WikiUser.new
+          u.email=row['user_email']
+          u.id=row['user_id']
+          u.name=row['user_name']
+          u.real_name=row['user_real_name']
+          u.status=row['user_rights']
+          return u
+        else
+          false # incorrect password
+        end
+      end
+      false
+    end
+    false
+  end
+
+  def sanitize_username(name)
+    return "" if name.blank?
+    name=name[0].chr.capitalize + name[1..-1]
+    name.gsub(/_/, ' ')
+  end
+
 end

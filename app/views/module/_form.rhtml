@@ -16,7 +16,7 @@
   </tr>
   <tr>
     <td class="right">License:</td>
-    <td><%= select("package", "license_id",License.find_all.collect {
+    <td><%= select("package", "license_id",License.find(:all).collect {
 	    |l| [l.name, l.id] })  %></td>
   </tr>
   <tr>

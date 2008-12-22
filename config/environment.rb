@@ -9,6 +9,7 @@
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
+require File.join(File.dirname(__FILE__), '../vendor/plugins/engines/boot')
 
 Rails::Initializer.run do |config|
     config.action_controller.session = {
@@ -65,6 +66,16 @@ end
 # Include your application configuration below
 
 # gem 'gardenauth'
+case ENV['RAILS_ENV']
+when "production"
+  Garden.auth_method=:wiki
+  Garden.localsettings_php = "/var/www/contextgarden.net/contextwiki/LocalSettings.php"
+else
+  Garden.auth_method=:dummy
+end
+
+Garden.use_db=false
+
 require 'socket'
 
 RSSFILE=File.join(RAILS_ROOT,"public","modulesrss.xml")

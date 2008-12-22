@@ -1,6 +1,0 @@
-[submodule "vendor/plugins/engines"]
-	path = vendor/plugins/engines
-	url = git://github.com/contextgarden/engines.git
-[submodule "vendor/plugins/garden"]
-	path = vendor/plugins/garden
-	url = git://github.com/contextgarden/garden.git
