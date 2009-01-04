@@ -1,0 +1,30 @@
+<% @page_title="Login" -%>
+
+<% if flash[:notice] -%>
+   <div id="flash"><%= flash[:notice] %></div>
+<% end -%>
+
+<% if @logged_in %>
+<p>You are logged in. <%= link_to "You can log out", :action => "logout"%> if you wish.</p>
+<% else %>
+   <p>Please log in using the name and password from the wiki</p>
+   <% form_tag(:action => "login", :return_to => @return_to) do %>
+   <table>
+       <tr>
+           <td class="right">Wiki Login</td>
+           <td><%= text_field     'user', 'name' %></td>
+       </tr>
+       <tr>
+           <td class="right">Password</td>
+           <td><%= password_field 'user', 'password' %></td>
+       </tr>
+   <% if use_db? %>
+       <tr>
+           <td class="right">your full name, if this is your first login</td>
+           <td><%= text_field     'user', 'fullname' %></td>
+       </tr>
+   <% end %>
+   </table>
+   <%= submit_tag "login" %>
+   <% end %>
+<% end %>
