@@ -56,7 +56,7 @@ class ModuleController < ApplicationController
       redirect_to :action=> "index"
       return
     end
-    render_action :index
+    render :action => "index"
   end
   def edit
     @sidebar="sidebar_detail"
@@ -76,7 +76,7 @@ class ModuleController < ApplicationController
       flash['notice'] = 'Module was successfully updated.'
       redirect_to "/#{@package.shortname}"
     else
-      render_action 'edit'
+      render :action => 'edit'
     end
   end
   def update_revision
