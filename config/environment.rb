@@ -11,10 +11,22 @@
 require File.join(File.dirname(__FILE__), 'boot')
 require File.join(File.dirname(__FILE__), '../vendor/plugins/engines/boot')
 
+secret_file = File.join(File.dirname(__FILE__), 'secret')
+rails_secret = nil
+if File.exists?(secret_file)
+  rails_secret = File.read(secret_file).chomp
+else
+  puts "Please run\nrake -s secret > #{secret_file}\nto generate a unique secret
+ key for this installation."
+  puts "Aborting."
+  exit(-1)
+end
+
+
 Rails::Initializer.run do |config|
     config.action_controller.session = {
     :session_key => '_modules_session',
-    :secret      => '90acd2154defbcb87fc0c54cfe6d8061fede39218e6fd64312c5fab1a4916f05eaf96e7db09064069aa20dc690d6efb2cc894fc7d332c5b8da4fb119734d107e'
+    :secret      => rails_secret
   }
 
   # Settings in config/environments/* take precedence over those specified here
