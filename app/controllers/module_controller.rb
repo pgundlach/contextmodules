@@ -124,7 +124,10 @@ class ModuleController < ApplicationController
    end
     FileUtils::cd(DLDIR) do
       sl=@package.filename+".zip"
-      if test(?l,sl)
+      # warning: if sl is not a symlink then
+      # test(?l,sl) will fail and thus the next
+      # step (create symlink) will fail.
+      if test(?f,sl)
         logger.info "removing symlink " + sl
         FileUtils::rm(sl)
       end
