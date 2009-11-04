@@ -14,7 +14,16 @@ class ModuleController < ApplicationController
   def create
     @sidebar="sidebar_detail"
     @package = Package.new(params[:package])
-    @package.author=Author.find(params[:author][:id])
+    
+    # Processing ModuleController#create (for 82.95.203.226 at 2009-11-04 08:46:12) [POST]
+    # Parameters: {"commit"=>"Create", "package"=>{"indistrib"=>"0", "shortname"=>"", "name"=>"Bib manual", "syncwithctan"=>"0",
+    # "ingarden"=>"1", "description"=>"", "license_id"=>"1", "filename"=>"", "ctan"=>"", "author_id"=>"4", "comment"=>"", "short_
+    # desc"=>"The manual for the bib module (that is now in the core distribution)"}, "keywords"=>["14"]}
+    # NoMethodError (undefined method `[]' for nil:NilClass):
+    #   /app/controllers/module_controller.rb:17:in `create'
+    # ...
+    # therefore commented this line:
+    # @package.author=Author.find(params[:author][:id])
     logger.info "Author=#{@package.author}"
     if params[:keywords]
       @package.keywords=Keyword.find(params[:keywords])
