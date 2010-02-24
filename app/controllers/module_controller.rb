@@ -49,6 +49,8 @@ class ModuleController < ApplicationController
   def detail
     @sidebar="sidebar_detail"
     @package=Package.find_by_shortname(params[:name])
+    author = @package.author
+    @authorname = author ? author.name : "unknown"
     unless @package
       flash[:notice]="No such module: #{params[:name]}"
       redirect_to :action => "index"
