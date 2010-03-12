@@ -1,6 +1,7 @@
 class LoginController < ApplicationController
   require 'digest/md5'
   require_dependency "wikiuser"
+  filter_parameter_logging :password
 
   def index
     @logged_in = logged_in?
@@ -13,8 +14,8 @@ class LoginController < ApplicationController
     redirect_to @return_to || request.env["HTTP_REFERER"] || "/"
   end
 
-  def foo
-    render :text => "status: sysop #{sysop?} bureaucrat: #{bureaucrat?}"
+  def check_status
+    render :text => "status: logged in? #{logged_in?}, sysop: #{sysop?}, bureaucrat: #{bureaucrat?}"
   end
 
   def login
@@ -121,7 +122,17 @@ class LoginController < ApplicationController
     result=m.query("SELECT * from user")
     result.each_hash do |row|
       if row['user_name']==username
-        if row['user_password']==Digest::MD5.hexdigest(row['user_id']+"-"+md5password)
+        logger.info "gardenauth: username found"
+        pwmatch = nil
+        if row['user_password'] =~ /:B:(.*):(.*)/
+          logger.info "gardenauth: new style password (with salt)"
+          pwmatch = ":B:" + $1 + ":" + Digest::MD5.hexdigest($1+"-"+md5password)
+        else
+          logger.info "gardenauth: old style password"
+          pwmatch = Digest::MD5.hexdigest(row['user_id']+"-"+md5password)
+        end
+        if row['user_password']==pwmatch
+          logger.info "gardenauth: success logging in"
           u=WikiUser.new
           u.email=row['user_email']
           u.id=row['user_id']
