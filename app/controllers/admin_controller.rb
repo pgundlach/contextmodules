@@ -7,7 +7,7 @@ class AdminController < ApplicationController
   def authorize
     unless is_admin?
       redirect_to "/"
-      false
+      return false
     end
     true
   end
