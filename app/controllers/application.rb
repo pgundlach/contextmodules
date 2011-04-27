@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
       item.title = package.name
       item.title <<  " (" + package.latest_version  + ")" if package.latest_version
       item.link = "http://modules.contextgarden.net/" + package.shortname
-      item.description = "Author: " + package.author.name
+      item.description = "Author: " + ( package.author.name || "(unknown)" )
       if package.in_garden?
         item.description  << "<br/>Current Version: " + (package.latest_version || "")
       end
