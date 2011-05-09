@@ -7,13 +7,13 @@
     <col width="60%">
   </colgroup>
   <tr>
-    <td class="right">Name of module:</td>
+    <td class="right">Name of module:<br/><span class="example">(example: Foo module)</span></td>
     <td><%= text_field "package", "name" %></td></tr>
   <tr>
    <tr>
-     <td class="right">Short name (id):</td>
+     <td class="right">Short name (id):<br/><span class="example">(example: foo)</span></td>
      <td><%= text_field "package", "shortname" %></td></tr>
-    <td class="right">Short description:</td>
+    <td class="right">Short description:<br/><span class="example">(a few words)</span></td>
     <td><%= text_area("package","short_desc", :rows=>"3") %></td></tr> 
   <tr>
     <td class="right">Author:</td>
@@ -25,7 +25,7 @@
   </tr>
   <% if @package.filename -%>
   <tr>
-    <td class="right">Filename:</td>
+    <td class="right">Filename:<br/><span class="example">(example: t-foo)</span></td>
     <td><%= text_field "package", "filename" %></td></tr>
   <% end -%>
   <tr>
@@ -42,7 +42,6 @@
       <%= text_field("package", "latest_version") -%>
     </td>
   </tr>
--->
   <tr><td class="right">In garden</td>
     <td><%= check_box("package", "ingarden") %></td></tr>
   <tr><td class="right">In sync with CTAN:</td>
@@ -53,6 +52,7 @@
   <tr><td class="right">In distribution:</td>
     <td><%= check_box("package","indistrib") %></td>
   </tr>
+-->
   <tr><td class="right">Description:</td>
     <td><%= text_area("package","description", :rows=>"10") %></td></tr>
   <tr><td class="right">Comment:</td>
