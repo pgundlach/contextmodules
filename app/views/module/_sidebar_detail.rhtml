@@ -18,7 +18,8 @@
 <% if @package.has_documentation? -%>
 <h2>Documentation</h2>
 <% @package.documentation.each do |doc| %>
-  <%= link_to((doc.alt || File.basename(doc.filename)) + " (#{doc.filetype})", DL_BASE+"/#{@package.filename}/#{doc.filename}") %><br />
+  <%= link_to((doc.alt || File.basename(doc.filename)) + " (#{doc.filetype})", ( doc.url.empty? ? DL_BASE+"/#{@package.filename}/#{doc.filename}" :\
+ doc.url )) %><br />
 <% end -%>
 <% end -%>
 
